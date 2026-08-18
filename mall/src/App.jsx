@@ -1,12 +1,11 @@
-import { useState } from "react";
-import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import Root from "./router/Root";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <h1>리액트 스프링부트 연동</h1>
+      <RouterProvider router={Root} />
     </>
   );
 }
