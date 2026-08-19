@@ -40,7 +40,7 @@ const ReadPage = () => {
         <ReadComponent
           tno={tno}
           moveToList={moveToList}
-          moveToModify={moveToList}
+          moveToModify={moveToModify}
         />
         {/* <div>
           <button onClick={() => moveToModify(tno)}>Test Modify</button>

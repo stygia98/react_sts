@@ -3,7 +3,7 @@ import {
   createSearchParams,
   useNavigate,
   useSearchParams,
-  useParams
+  useParams,
 } from "react-router-dom";
 
 // const getNum = (param, defaultValue) => {
@@ -14,29 +14,32 @@ import {
 // };
 
 const UseCustomMove = () => {
-    const {tno} = useParams();
+  const { tno } = useParams();
   const nav = useNavigate();
   const [refresh, setRefresh] = useState(false);
 
   // todo/read?page=5&size=10
-  const [queryParams] = useSearchParams();
   //   const page = getNum(queryParams.get("page"), 1);
   //   const size = getNum(queryParams.get("size"), 10);
+  const [queryParams] = useSearchParams();
   const page = queryParams.get("page") ? parseInt(queryParams.get("page")) : 1;
   const size = queryParams.get("size") ? parseInt(queryParams.get("size")) : 10;
   const queryDefault = createSearchParams({ page, size }).toString(); //새로 추가
-  
-    console.log(`UseCustomMove = ${page}`)
+
+  console.log(`UseCustomMove = ${page}`);
 
   const moveToList = (pageParam) => {
     let queryStr;
-      
+
     if (pageParam) {
-        const pageNum = pageParam.page ? parseInt(pageParam.page) : page
-        const sizeNum = pageParam.size ? parseInt(pageParam.size) : size
-        queryStr = createSearchParams({ page: pageNum, size: sizeNum, }).toString();
-        //const pageNum = getNum(pageParam.page, page);
-        //const sizeNum = getNum(pageParam.size, size);
+      const pageNum = pageParam.page ? parseInt(pageParam.page) : page;
+      const sizeNum = pageParam.size ? parseInt(pageParam.size) : size;
+      queryStr = createSearchParams({
+        page: pageNum,
+        size: sizeNum,
+      }).toString();
+      //const pageNum = getNum(pageParam.page, page);
+      //const sizeNum = getNum(pageParam.size, size);
     } else {
       queryStr = queryDefault;
     }
@@ -63,14 +66,29 @@ const UseCustomMove = () => {
   // };
 
   const moveToModify = useCallback(
-    (tno) => { nav({ pathname: `/todo/modify/${tno}`, search: queryDefault })
-  }, [nav, queryDefault]);
+    (tno) => {
+      nav({ pathname: `/todo/modify/${tno}`, search: queryDefault });
+    },
+    [nav, queryDefault],
+  );
 
   const moveToRead = useCallback(
-    (tno) => { nav({ pathname: `../todo/read/${tno}`, search: queryDefault });
-  }, [nav, queryDefault]);
+    (tno) => {
+      nav({ pathname: `../todo/read/${tno}`, search: queryDefault });
+    },
+    [nav, queryDefault],
+  );
 
-  return { moveToList, moveToModify, moveToRead, page, size, tno, nav, refresh }; //moveToModify 추가
+  return {
+    moveToList,
+    moveToModify,
+    moveToRead,
+    page,
+    size,
+    tno,
+    nav,
+    refresh,
+  }; //moveToModify 추가
 };
 
 export default UseCustomMove;

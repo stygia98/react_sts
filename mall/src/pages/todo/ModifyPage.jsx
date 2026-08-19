@@ -1,16 +1,20 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import Header from "../../include/Header";
-import { useParams } from "react-router-dom";
+import ModifyComponent from "../../components/todo/ModifyComponent";
+import UseCustomMove from "../../hooks/UseCustomMove";
 
 const ModifyPage = () => {
-  const { tno } = useParams();
+  const { tno, moveToList, moveToRead } = UseCustomMove();
 
   return (
     <Container>
       <Header />
-      tno = {tno}
-      <h1>ModifyPage</h1>
+      <ModifyComponent
+        tno={tno}
+        moveToList={moveToList}
+        moveToRead={moveToRead}
+      />
     </Container>
   );
 };
