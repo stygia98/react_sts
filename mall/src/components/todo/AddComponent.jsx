@@ -12,9 +12,9 @@ const initState = {
   dueDate: "",
 };
 
-const AddComponent = () => {
+const AddComponent = ({ moveToList, page }) => {
   const [todo, setTodo] = useState({ ...initState });
-  const { page, moveToList } = UseCustomMove();
+  // const { page, moveToList } = UseCustomMove();
   const [flag, setFlag] = useState(false);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -33,7 +33,7 @@ const AddComponent = () => {
         // setInfoModalOn(true);
         setTodo({ ...initState }); // 초기화
         setTitle("Success");
-        setContent(`${result.TNO} 성공`);
+        setContent(`${result.tno} 성공`);
         setFlag(true);
       })
       .catch((e) => {

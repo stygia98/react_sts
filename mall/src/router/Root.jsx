@@ -10,7 +10,13 @@ const AddPage = lazy(() => import("../pages/todo/AddPage"));
 const ReadPage = lazy(() => import("../pages/todo/ReadPage"));
 const ModifyPage = lazy(() => import("../pages/todo/ModifyPage"));
 
+const ProductListPage = lazy(() => import("../pages/product/ListPage"));
+const ProductAddPage = lazy(() => import("../pages/product/AddPage"));
+const ProductReadPage = lazy(() => import("../pages/product/ReadPage"));
+const ProductModifyPage = lazy(() => import("../pages/product/ModifyPage"));
+
 const Root = createBrowserRouter([
+  // ===============common page===============
   {
     path: "/",
     element: (
@@ -27,6 +33,7 @@ const Root = createBrowserRouter([
       </Suspense>
     ),
   },
+  // ================todo pages===============
   {
     path: "/todo/list",
     element: (
@@ -56,6 +63,39 @@ const Root = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <ModifyPage />
+      </Suspense>
+    ),
+  },
+  // ==============product pages==============
+  {
+    path: "/product/list",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProductListPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/product/add",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProductAddPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/product/read/:pno",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProductReadPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/product/modify/:pno",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProductModifyPage />
       </Suspense>
     ),
   },

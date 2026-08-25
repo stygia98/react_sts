@@ -28,6 +28,40 @@ const UseCustomMove = () => {
 
   console.log(`UseCustomMove = ${page}`);
 
+  const moveToProductList = (pageParam) => {
+    let queryStr;
+
+    if (pageParam) {
+      const pageNum = pageParam.page ? parseInt(pageParam.page) : page;
+      const sizeNum = pageParam.size ? parseInt(pageParam.size) : size;
+      queryStr = createSearchParams({
+        page: pageNum,
+        size: sizeNum,
+      }).toString();
+    } else {
+      queryStr = queryDefault;
+    }
+    nav({
+      pathname: `../product/list`,
+      search: queryStr,
+    });
+    setRefresh(!refresh); //추가
+  };
+
+  const moveToProductRead = (pno) => {
+    nav({
+      pathname: `../product/read/${pno}`,
+      search: queryDefault,
+    });
+  };
+
+  // const moveToProductRead = useCallback(
+  //   (tno) => {
+  //     nav({ pathname: `../todo/read/${tno}`, search: queryDefault });
+  //   },
+  //   [nav, queryDefault],
+  // );
+
   const moveToList = (pageParam) => {
     let queryStr;
 
@@ -80,6 +114,8 @@ const UseCustomMove = () => {
   );
 
   return {
+    moveToProductList,
+    moveToProductRead,
     moveToList,
     moveToModify,
     moveToRead,
@@ -88,7 +124,7 @@ const UseCustomMove = () => {
     tno,
     nav,
     refresh,
-  }; //moveToModify 추가
+  };
 };
 
 export default UseCustomMove;
