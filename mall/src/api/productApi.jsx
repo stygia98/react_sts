@@ -5,7 +5,7 @@ export const API_SERVER_HOST = "http://localhost:8080";
 const prefix = `${API_SERVER_HOST}/api/products`;
 
 // http://localhost:8080/api/products/tno - get
-export const getOne = async (tno) => {
+export const productGetOne = async (tno) => {
   const res = await axios.get(`${prefix}/${tno}`);
   return res.data;
 };
@@ -29,13 +29,14 @@ export const productPostAdd = async (product) => {
 };
 
 // http://localhost:8080/api/products/tno - delete
-export const deleteOne = async (tno) => {
-  const res = await axios.delete(`${prefix}/${tno}`);
+export const productDeleteOne = async (pno) => {
+  const res = await axios.delete(`${prefix}/${pno}`);
   return res.data;
 };
 
 // http://localhost:8080/api/products/tno - put
-export const putOne = async (todo) => {
-  const res = await axios.put(`${prefix}/${todo.tno}`, todo);
+export const productPutOne = async (pno, product) => {
+  const header = { headers: { "Content-Type": "multipart/form-data" } };
+  const res = await axios.put(`${prefix}/${pno}`, product, header);
   return res.data;
 };

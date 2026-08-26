@@ -14,7 +14,7 @@ import {
 // };
 
 const UseCustomMove = () => {
-  const { tno } = useParams();
+  const { tno, pno } = useParams();
   const nav = useNavigate();
   const [refresh, setRefresh] = useState(false);
 
@@ -61,6 +61,13 @@ const UseCustomMove = () => {
   //   },
   //   [nav, queryDefault],
   // );
+
+  const moveToProductModify = useCallback(
+    (pno) => {
+      nav({ pathname: `/product/modify/${pno}`, search: queryDefault });
+    },
+    [nav, queryDefault],
+  );
 
   const moveToList = (pageParam) => {
     let queryStr;
@@ -114,6 +121,7 @@ const UseCustomMove = () => {
   );
 
   return {
+    moveToProductModify,
     moveToProductList,
     moveToProductRead,
     moveToList,
@@ -122,6 +130,7 @@ const UseCustomMove = () => {
     page,
     size,
     tno,
+    pno,
     nav,
     refresh,
   };

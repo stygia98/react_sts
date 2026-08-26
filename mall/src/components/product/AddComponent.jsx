@@ -38,14 +38,10 @@ const AddComponent = ({ moveToProductList, page }) => {
     formData.append("price", product.price);
     console.log(`formData : ${formData}`);
 
-    productPostAdd(formData).then((data) => {
-      setFetching(false);
-    });
-
     productPostAdd(formData)
       .then((result) => {
         console.log(result);
-        setFetching(true);
+        setFetching(false);
         setProduct({ ...initState }); // 초기화
         setTitle("Success");
         setContent(`${result.RESULT} 성공`);

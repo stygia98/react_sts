@@ -29,7 +29,7 @@ const ReadPage = () => {
   //   nav({ pathname: `/todo/list`, search: queryStr });
   // }, [nav, queryStr]);
 
-  const { moveToList, moveToModify, tno, nav } = UseCustomMove();
+  const { moveToProductList, moveToProductModify, pno, nav } = UseCustomMove();
 
   return (
     <Container>
@@ -38,9 +38,9 @@ const ReadPage = () => {
         {/* http://localhost:5173/todo/read/10?page=1&size=10 */}
         {/* tno = {tno} */}
         <ReadComponent
-          tno={tno}
-          moveToList={moveToList}
-          moveToModify={moveToModify}
+          pno={pno}
+          moveToProductList={moveToProductList}
+          moveToProductModify={moveToProductModify}
         />
         {/* <div>
           <button onClick={() => moveToModify(tno)}>Test Modify</button>

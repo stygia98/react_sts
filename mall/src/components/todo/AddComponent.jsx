@@ -33,7 +33,7 @@ const AddComponent = ({ moveToList, page }) => {
         // setInfoModalOn(true);
         setTodo({ ...initState }); // 초기화
         setTitle("Success");
-        setContent(`${result.tno} 성공`);
+        setContent(`${result.TNO} : 성공`);
         setFlag(true);
       })
       .catch((e) => {

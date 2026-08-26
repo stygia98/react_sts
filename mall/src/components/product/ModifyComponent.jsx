@@ -1,34 +1,47 @@
-import { useEffect, useState } from "react";
-import { getOne, putOne, deleteOne } from "../../api/productApi";
-import { Form, Container } from "react-bootstrap";
+import { useEffect, useRef, useState } from "react";
+import {
+  productGetOne,
+  productPutOne,
+  productDeleteOne,
+  API_SERVER_HOST,
+} from "../../api/productApi";
+import { Form, Container, Row, Button, Card } from "react-bootstrap";
 import InfoModal from "../common/InfoModal";
 import UseCustomMove from "../../hooks/UseCustomMove";
+import FetchingModal from "../common/FetchingModal";
+import exceptionHandle from "../common/exceptionHandle";
+
+const host = API_SERVER_HOST;
 
 const initState = {
-  tno: 0,
-  title: "",
-  writer: "",
-  dueDate: "",
-  complete: false,
+  pno: 0,
+  pname: "",
+  price: 0,
+  pdesc: "",
+  files: [],
+  delFlag: false,
+  uploadFileNames: [],
 };
 
-const ModifyComponent = ({ tno, moveToList, moveToRead }) => {
-  const [todo, setTodo] = useState(initState);
+const ModifyComponent = ({ pno, moveToProductList, moveToProductRead }) => {
+  const [product, setProduct] = useState(initState);
   const [flag, setFlag] = useState(false);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const [fetching, setFetching] = useState(true);
+  const uploadRef = useRef();
   // const { page, moveToList } = UseCustomMove();
 
   const onClickUpdate = (e) => {
     const value = e.target.value;
-    putOne(todo)
+    productPutOne(product)
       .then((data) => {
-        setTitle(`Todo 수정 : ${todo.tno}`);
+        setTitle(`Todo 수정 : ${product.tno}`);
         data.RESULT === "SUCCESS" ? setContent("성공") : setContent("실패");
         setFlag(true);
       })
       .catch((e) => {
-        setTitle(`Todo 수정 : ${todo.tno}`);
+        setTitle(`Todo 수정 : ${product.tno}`);
         setContent("오류발생");
         console.log(`예외[ModifyComponent]: ${e}`);
         setFlag(true);
@@ -36,45 +49,109 @@ const ModifyComponent = ({ tno, moveToList, moveToRead }) => {
   };
 
   const onClickDelete = () => {
-    deleteOne(todo.tno)
+    productDeleteOne(product.tno)
       .then((data) => {
-        setTitle(`Todo 삭제 : ${todo.tno}`);
+        setTitle(`Todo 삭제 : ${product.tno}`);
         data.RESULT === "SUCCESS" ? setContent("성공") : setContent("실패");
         setFlag(true);
       })
       .catch((e) => {
-        setTitle(`Todo 삭제 : ${todo.tno}`);
+        setTitle(`Todo 삭제 : ${product.tno}`);
         setContent("오류발생");
         console.log(`예외[ModifyComponent]: ${e}`);
         setFlag(true);
       });
   };
 
+  useEffect(() => {
+    productGetOne(pno)
+      .then((data) => {
+        console.log(data);
+        setProduct(data);
+      })
+      .catch((e) => {
+        exceptionHandle(e);
+      })
+      .finally(() => {
+        setFetching(false);
+      });
+  }, [pno]);
+
+  const handleChangeProduct = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
+
+  const deleteImages = (imageName) => {
+    const filteredFileName = product.uploadFileNames.filter(
+      (fileName) => fileName != imageName,
+    );
+    setProduct({ ...product, uploadFileNames: [...filteredFileName] });
+  };
+
+  const handleClickModify = () => {
+    const files = uploadRef.current.files;
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+    //other data
+    formData.append("pname", product.pname);
+    formData.append("pdesc", product.pdesc);
+    formData.append("price", product.price);
+    formData.append("delFlag", product.delFlag);
+    for (let i = 0; i < product.uploadFileNames.length; i++) {
+      formData.append("uploadFileNames", product.uploadFileNames[i]);
+    }
+    // setFetching(true);
+    //수정처리
+    productPutOne(pno, formData)
+      .then((data) => {
+        setFetching(false);
+        setTitle("Success");
+        setContent(`${data.RESULT} : 성공`);
+        setFlag(true);
+      })
+      .catch((e) => {
+        setTitle("Fail");
+        setContent(`${e} 실패`);
+        setFlag(true);
+        console.error(e);
+      });
+  };
+
+  const handleClickDelete = () => {
+    setFetching(true);
+    productDeleteOne(pno)
+      .then((data) => {
+        setFetching(false);
+        setTitle("Success");
+        setContent(`${data.RESULT} : 성공`);
+        setFlag(true);
+      })
+      .catch((e) => {
+        setTitle("Fail");
+        setContent(`${e} 실패`);
+        setFlag(true);
+        console.error(e);
+      });
+  };
+
   const closeModal = () => {
     setFlag(false);
-    moveToList();
+    moveToProductList();
   };
 
-  useEffect(() => {
-    getOne(tno).then((data) => {
-      setTodo(data);
-    });
-  }, [tno]);
-
-  const onChangeTodo = (e) => {
-    setTodo({ ...todo, [e.target.name]: e.target.value });
-  };
-
-  const onChangeComplete = (e) => {
+  const onChangeUseDelete = (e) => {
     const value = e.target.value === "true" ? true : false;
-    // todo.complete = value === "true" ? "true" : "false";
-    setTodo({ ...todo, complete: value });
+    setProduct({ ...product, delFlag: value });
   };
 
-  useEffect(() => {}, [tno]);
+  useEffect(() => {}, [pno]);
+
   return (
     <>
       <Container className="p-5">
+        {fetching ? <FetchingModal /> : <></>}
         <InfoModal
           show={flag}
           title={title}
@@ -83,77 +160,88 @@ const ModifyComponent = ({ tno, moveToList, moveToRead }) => {
         ></InfoModal>
         <Form>
           <Form.Group className="mb-3">
-            <Form.Label>TNO</Form.Label>
+            <Form.Label>PNAME</Form.Label>
             <Form.Control
-              value={tno}
+              name="pname"
+              value={product.pname}
               type="text"
-              placeholder="Enter no"
-              disabled
+              placeholder="Enter name"
+              onChange={handleChangeProduct}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>WRITER</Form.Label>
+            <Form.Label>PRICE</Form.Label>
             <Form.Control
-              value={todo.writer}
-              type="text"
-              placeholder="Enter writer"
-              disabled
+              name="price"
+              type="number"
+              value={product.price}
+              placeholder="Enter price"
+              onChange={handleChangeProduct}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>TITLE</Form.Label>
+            <Form.Label>DESCRIPTION</Form.Label>
             <Form.Control
-              type="text"
-              name="title"
-              value={todo.title}
-              placeholder="Enter title"
-              onChange={onChangeTodo}
+              name="pdesc"
+              defaultValue={product.pdesc}
+              as="textarea"
+              rows={5}
+              onChange={handleChangeProduct}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>DATE</Form.Label>
-            <Form.Control
-              name="dueDate"
-              value={todo.dueDate}
-              type="date"
-              onChange={onChangeTodo}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>COMPLETE</Form.Label>
+            <Form.Label>DELETE</Form.Label>
             <Form.Select
-              name="complete"
-              value={todo.complete ? "true" : "false"}
-              onChange={onChangeComplete}
+              name="delFlag"
+              value={product.delFlag ? "true" : "false"}
+              onChange={onChangeUseDelete}
             >
-              <option value="true">Completed</option>
-              <option value="false">Not Yet</option>
+              <option value="false">사용</option>
+              <option value="true">삭제</option>
             </Form.Select>
           </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Files</Form.Label>
+            <Form.Control ref={uploadRef} type="file" multiple={true} />
+          </Form.Group>
         </Form>
+        <Row className="d-flex justify-content-center mt-5 gap-4">
+          {product.uploadFileNames.map((imgFile, i) => (
+            <Card style={{ width: "14rem", height: "14rem" }} key={i}>
+              <Button variant="primary" onClick={() => deleteImages(imgFile)}>
+                DELETE
+              </Button>
+              <Card.Body>
+                <img
+                  alt="img"
+                  style={{ width: "10rem" }}
+                  src={`${host}/api/products/view/s_${imgFile} `}
+                />
+              </Card.Body>
+            </Card>
+          ))}
+        </Row>
         <div className="d-flex justify-content-center gap-2 mt-5">
           <button
-            className="btn btn-secondary"
+            className="btn btn-outline-secondary"
             type="button"
-            onClick={onClickUpdate}
+            onClick={handleClickDelete}
           >
-            수정하기
+            DELETE
           </button>
           <button
             className="btn btn-danger"
             type="button"
-            onClick={onClickDelete}
+            onClick={handleClickModify}
           >
-            삭제하기
+            MODIFY
           </button>
           <button
             className="btn btn-primary"
             type="text"
-            onClick={() => {
-              moveToList();
-            }}
+            onClick={moveToProductList}
           >
-            목록가기
+            LIST
           </button>
         </div>
       </Container>

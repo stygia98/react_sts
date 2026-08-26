@@ -5,15 +5,15 @@ import ModifyComponent from "../../components/product/ModifyComponent";
 import UseCustomMove from "../../hooks/UseCustomMove";
 
 const ModifyPage = () => {
-  const { tno, moveToList, moveToRead } = UseCustomMove();
+  const { pno, moveToProductList, moveToProductRead } = UseCustomMove();
 
   return (
     <Container>
       <Header />
       <ModifyComponent
-        tno={tno}
-        moveToList={moveToList}
-        moveToRead={moveToRead}
+        pno={pno}
+        moveToProductList={moveToProductList}
+        moveToProductRead={moveToProductRead}
       />
     </Container>
   );

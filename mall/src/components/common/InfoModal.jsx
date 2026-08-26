@@ -19,7 +19,7 @@ const InfoModal = ({ show, title, content, callbackFn }) => {
             </Form.Group>
             <div className="d-flex justify-content-center">
               <Button
-                block
+                // block
                 variant="info"
                 type="button"
                 className="my-3"
