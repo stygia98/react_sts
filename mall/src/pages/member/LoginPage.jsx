@@ -4,13 +4,13 @@ import LoginComponent from "../../components/member/LoginComponent";
 import UseCustomLogin from "../../hooks/UseCustomLogin";
 
 const LoginPage = () => {
-  const { doLogout, moveToPath } = UseCustomLogin();
+  const { doLogin, moveToPath } = UseCustomLogin();
 
   return (
     <Container>
       <Header />
       <div className="d-grid gap-2 mt-5 p-5">
-        <LoginComponent />
+        <LoginComponent dologin={doLogin} moveToPath={moveToPath} />
       </div>
     </Container>
   );

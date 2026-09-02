@@ -1,6 +1,7 @@
 import { Container, Table, Card, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { productGetList, API_SERVER_HOST } from "../../api/productApi";
+import { productGetList } from "../../api/productApi";
+import { API_SERVER_HOST } from "../../api/todoApi";
 import PageComponent from "../common/PageComponent";
 import UseCustomMove from "../../hooks/UseCustomMove";
 import FetchingModal from "../common/FetchingModal";
@@ -26,6 +27,7 @@ const ListComponent = ({
   size,
   moveToProductList,
   moveToProductRead,
+  exceptionHandle,
   refresh,
 }) => {
   const [serverData, setServerData] = useState(initState);

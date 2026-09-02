@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, createSearchParams } from "react-router-dom";
 import { loginPostAsync, logout } from "../slices/loginSlice";
 
 const UseCustomLogin = () => {
@@ -28,6 +28,22 @@ const UseCustomLogin = () => {
     // 현재 위치를 대체하며 /member/login 으로 즉시 이동
     return <Navigate replace to="/member/login" />;
   };
+  const exceptionHandle = (ex) => {
+    console.log("Exception -----------------------------------------------");
+    console.log(ex);
+    const errorMsg = ex.response.data.error;
+    const errorStr = createSearchParams({ error: errorMsg }).toString();
+    if (errorMsg === "REQUIRE_LOGIN") {
+      alert("로그인 해야만 합니다.");
+      navigate({ pathname: "/member/login", search: errorStr });
+      return;
+    }
+    if (errorMsg === "ERROR_ACCESSDENIED") {
+      alert("해당 메뉴를 사용할 수 있는 권한이 없습니다.");
+      navigate({ pathname: "/member/login", search: errorStr });
+      return;
+    }
+  };
   return {
     loginState,
     isLogin,
@@ -36,6 +52,7 @@ const UseCustomLogin = () => {
     moveToPath,
     moveToLogin,
     moveToLoginReturn,
+    exceptionHandle,
   };
 };
 export default UseCustomLogin;

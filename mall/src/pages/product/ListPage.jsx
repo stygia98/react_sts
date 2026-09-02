@@ -3,6 +3,7 @@ import Header from "../../include/Header";
 import ListComponent from "../../components/product/ListComponent";
 import { useSearchParams } from "react-router-dom";
 import UseCustomMove from "../../hooks/UseCustomMove";
+import UseCustomLogin from "../../hooks/UseCustomLogin";
 
 const ListPage = () => {
   // const [queryParams] = useSearchParams();
@@ -10,6 +11,8 @@ const ListPage = () => {
   // const size = queryParams.get("size") ? parseInt(queryParams.get("size")) : 10;
   const { page, size, moveToProductList, moveToProductRead, refresh } =
     UseCustomMove();
+
+  const { exceptionHandle } = UseCustomLogin();
 
   return (
     <Container>
@@ -21,6 +24,7 @@ const ListPage = () => {
           size={size}
           moveToProductList={moveToProductList}
           moveToProductRead={moveToProductRead}
+          exceptionHandle={exceptionHandle}
           refresh={refresh}
         />
       </div>

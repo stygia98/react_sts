@@ -2,8 +2,6 @@ import { React, useState } from "react";
 import { FloatingLabel, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../slices/loginSlice";
-import { loginPostAsync } from "../../slices/loginSlice";
 
 const initState = {
   email: "",
@@ -20,10 +18,9 @@ export default function LoginComponent({ dologin, moveToPath }) {
 
   const handleClickLogin = (e) => {
     // dispatch(login(loginParam));
-    dologin(loginPostAsync(loginParam))
-      .unwrap()
+    dologin(loginParam)
+      // .unwrap()
       .then((data) => {
-        console.log("after unwrap...");
         console.log(data);
         if (data.error) {
           alert("이메일과 패스워드를 다시 확인하세요");
@@ -33,7 +30,6 @@ export default function LoginComponent({ dologin, moveToPath }) {
           moveToPath("/");
         }
       });
-    // navigate({ pathname: "/member/logout" }, { replace: true });
   };
   return (
     <>

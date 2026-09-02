@@ -6,13 +6,15 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../slices/loginSlice";
 import { useNavigate } from "react-router-dom";
 
-export default function LogoutComponent() {
+export default function LogoutComponent({ doLogout, moveToPath }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClickLogout = async () => {
     dispatch(logout());
     await new Promise((resolve) => setTimeout(resolve, 100));
-    navigate({ pathname: "/" }, { replace: true });
+    // navigate({ pathname: "/" }, { replace: true });
+    alert("로그아웃되었습니다.");
+    moveToPath("/");
   };
   return (
     <Container className="p-5">

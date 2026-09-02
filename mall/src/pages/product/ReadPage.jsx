@@ -9,6 +9,7 @@ import {
   createSearchParams,
 } from "react-router-dom";
 import UseCustomMove from "../../hooks/UseCustomMove";
+import UseCustomLogin from "../../hooks/UseCustomLogin";
 
 const ReadPage = () => {
   // const { tno } = useParams();
@@ -31,6 +32,8 @@ const ReadPage = () => {
 
   const { moveToProductList, moveToProductModify, pno, nav } = UseCustomMove();
 
+  const { exceptionHandle } = UseCustomLogin();
+
   return (
     <Container>
       <Header />
@@ -41,6 +44,7 @@ const ReadPage = () => {
           pno={pno}
           moveToProductList={moveToProductList}
           moveToProductModify={moveToProductModify}
+          exceptionHandle={exceptionHandle}
         />
         {/* <div>
           <button onClick={() => moveToModify(tno)}>Test Modify</button>
