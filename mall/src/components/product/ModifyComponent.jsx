@@ -7,7 +7,7 @@ import {
 import { API_SERVER_HOST } from "../../api/todoApi";
 import { Form, Container, Row, Button, Card } from "react-bootstrap";
 import InfoModal from "../common/InfoModal";
-import UseCustomMove from "../../hooks/UseCustomMove";
+import useCustomMove from "../../hooks/useCustomMove";
 import FetchingModal from "../common/FetchingModal";
 import exceptionHandle from "../common/exceptionHandle";
 
@@ -30,7 +30,7 @@ const ModifyComponent = ({ pno, moveToProductList, moveToProductRead }) => {
   const [title, setTitle] = useState("");
   const [fetching, setFetching] = useState(true);
   const uploadRef = useRef();
-  // const { page, moveToList } = UseCustomMove();
+  // const { page, moveToList } = useCustomMove();
 
   const onClickUpdate = (e) => {
     const value = e.target.value;

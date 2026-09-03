@@ -2,13 +2,13 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Header from "../../include/Header";
 import ModifyComponent from "../../components/product/ModifyComponent";
-import UseCustomMove from "../../hooks/UseCustomMove";
-import UseCustomLogin from "../../hooks/UseCustomLogin";
+import useCustomMove from "../../hooks/useCustomMove";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const ModifyPage = () => {
-  const { pno, moveToProductList, moveToProductRead } = UseCustomMove();
+  const { pno, moveToProductList, moveToProductRead } = useCustomMove();
 
-  const { exceptionHandle } = UseCustomLogin();
+  const { exceptionHandle } = useCustomLogin();
 
   return (
     <Container>

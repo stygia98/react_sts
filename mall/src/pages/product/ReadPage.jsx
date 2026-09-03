@@ -8,8 +8,8 @@ import {
   useSearchParams,
   createSearchParams,
 } from "react-router-dom";
-import UseCustomMove from "../../hooks/UseCustomMove";
-import UseCustomLogin from "../../hooks/UseCustomLogin";
+import useCustomMove from "../../hooks/useCustomMove";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const ReadPage = () => {
   // const { tno } = useParams();
@@ -30,9 +30,9 @@ const ReadPage = () => {
   //   nav({ pathname: `/todo/list`, search: queryStr });
   // }, [nav, queryStr]);
 
-  const { moveToProductList, moveToProductModify, pno, nav } = UseCustomMove();
+  const { moveToProductList, moveToProductModify, pno, nav } = useCustomMove();
 
-  const { exceptionHandle } = UseCustomLogin();
+  const { exceptionHandle } = useCustomLogin();
 
   return (
     <Container>

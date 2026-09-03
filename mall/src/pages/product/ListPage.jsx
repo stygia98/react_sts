@@ -2,17 +2,17 @@ import { Container } from "react-bootstrap";
 import Header from "../../include/Header";
 import ListComponent from "../../components/product/ListComponent";
 import { useSearchParams } from "react-router-dom";
-import UseCustomMove from "../../hooks/UseCustomMove";
-import UseCustomLogin from "../../hooks/UseCustomLogin";
+import useCustomMove from "../../hooks/useCustomMove";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const ListPage = () => {
   // const [queryParams] = useSearchParams();
   // const page = queryParams.get("page") ? parseInt(queryParams.get("page")) : 1;
   // const size = queryParams.get("size") ? parseInt(queryParams.get("size")) : 10;
   const { page, size, moveToProductList, moveToProductRead, refresh } =
-    UseCustomMove();
+    useCustomMove();
 
-  const { exceptionHandle } = UseCustomLogin();
+  const { exceptionHandle } = useCustomLogin();
 
   return (
     <Container>

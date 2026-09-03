@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { FloatingLabel, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import KakaoLoginComponent from "./KakaoLoginComponent";
 
 const initState = {
   email: "",
@@ -61,6 +62,7 @@ export default function LoginComponent({ dologin, moveToPath }) {
           로그인
         </Button>
       </div>
+      <KakaoLoginComponent />
     </>
   );
 }

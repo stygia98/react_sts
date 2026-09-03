@@ -13,7 +13,7 @@ import {
 //   return parseInt(param);
 // };
 
-const UseCustomMove = () => {
+const useCustomMove = () => {
   const { tno, pno } = useParams();
   const nav = useNavigate();
   const [refresh, setRefresh] = useState(false);
@@ -26,7 +26,7 @@ const UseCustomMove = () => {
   const size = queryParams.get("size") ? parseInt(queryParams.get("size")) : 10;
   const queryDefault = createSearchParams({ page, size }).toString(); //새로 추가
 
-  console.log(`UseCustomMove = ${page}`);
+  console.log(`useCustomMove = ${page}`);
 
   const moveToProductList = (pageParam) => {
     let queryStr;
@@ -136,4 +136,4 @@ const UseCustomMove = () => {
   };
 };
 
-export default UseCustomMove;
+export default useCustomMove;

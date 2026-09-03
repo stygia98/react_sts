@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, createSearchParams } from "react-router-dom";
 import { loginPostAsync, logout } from "../slices/loginSlice";
 
-const UseCustomLogin = () => {
+const useCustomLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.loginSlice); //-------로그인 상태
@@ -55,4 +55,4 @@ const UseCustomLogin = () => {
     exceptionHandle,
   };
 };
-export default UseCustomLogin;
+export default useCustomLogin;

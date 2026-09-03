@@ -2,7 +2,7 @@ import { Container, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { getList } from "../../api/todoApi";
 import PageComponent from "../common/PageComponent";
-import UseCustomMove from "../../hooks/UseCustomMove";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const initState = {
   dtoList: [],

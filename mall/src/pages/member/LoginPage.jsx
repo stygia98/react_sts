@@ -1,10 +1,10 @@
 import { Container } from "react-bootstrap";
 import Header from "../../include/Header";
 import LoginComponent from "../../components/member/LoginComponent";
-import UseCustomLogin from "../../hooks/UseCustomLogin";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const LoginPage = () => {
-  const { doLogin, moveToPath } = UseCustomLogin();
+  const { doLogin, moveToPath } = useCustomLogin();
 
   return (
     <Container>

@@ -2,10 +2,10 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Header from "../../include/Header";
 import ModifyComponent from "../../components/todo/ModifyComponent";
-import UseCustomMove from "../../hooks/UseCustomMove";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const ModifyPage = () => {
-  const { tno, moveToList, moveToRead } = UseCustomMove();
+  const { tno, moveToList, moveToRead } = useCustomMove();
 
   return (
     <Container>

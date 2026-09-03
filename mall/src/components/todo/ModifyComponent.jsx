@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getOne, putOne, deleteOne } from "../../api/todoApi";
 import { Form, Container } from "react-bootstrap";
 import InfoModal from "../common/InfoModal";
-import UseCustomMove from "../../hooks/UseCustomMove";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const initState = {
   tno: 0,
@@ -17,7 +17,7 @@ const ModifyComponent = ({ tno, moveToList, moveToRead }) => {
   const [flag, setFlag] = useState(false);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
-  // const { page, moveToList } = UseCustomMove();
+  // const { page, moveToList } = useCustomMove();
 
   const onClickUpdate = (e) => {
     const value = e.target.value;

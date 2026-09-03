@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import UseCustomMove from "../../hooks/UseCustomMove";
+import useCustomMove from "../../hooks/useCustomMove";
 import { postAdd } from "../../api/todoApi";
 import InfoModal from "../common/InfoModal";
 
@@ -14,7 +14,7 @@ const initState = {
 
 const AddComponent = ({ moveToList, page }) => {
   const [todo, setTodo] = useState({ ...initState });
-  // const { page, moveToList } = UseCustomMove();
+  // const { page, moveToList } = useCustomMove();
   const [flag, setFlag] = useState(false);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");

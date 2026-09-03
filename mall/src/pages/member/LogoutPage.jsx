@@ -1,10 +1,10 @@
 import { Container } from "react-bootstrap";
 import Header from "../../include/Header";
 import LogoutComponent from "../../components/member/LogoutComponent";
-import UseCustomLogin from "../../hooks/UseCustomLogin";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const LogoutPage = () => {
-  const { doLogout, moveToPath } = UseCustomLogin();
+  const { doLogout, moveToPath } = useCustomLogin();
 
   return (
     <Container>

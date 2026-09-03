@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import UseCustomMove from "../../hooks/UseCustomMove";
+import useCustomMove from "../../hooks/useCustomMove";
 import { productPostAdd } from "../../api/productApi";
 import InfoModal from "../common/InfoModal";
 import FetchingModal from "../common/FetchingModal";
